@@ -9,3 +9,4 @@
 .ccls-cache
 *~
 /compile_commands.json
+cmake-build*
