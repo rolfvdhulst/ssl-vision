@@ -234,6 +234,21 @@ void PluginVisualize::DrawCalibrationResult(FrameData *data,
     drawFieldArc(center, arc.radius->getDouble(), arc.a1->getDouble(),
                  arc.a2->getDouble(), steps_per_line, vis_frame);
   }
+
+    for (size_t i = 0; i < real_field.field_lines.size(); ++i) {
+        const FieldLine &line_segment = *(real_field.field_lines[i]);
+        const GVector::vector3d<double> p1z0(line_segment.p1_x->getDouble(),
+                                           line_segment.p1_y->getDouble(), 0.0);
+        const GVector::vector3d<double> p2z0(line_segment.p2_x->getDouble(),
+                                           line_segment.p2_y->getDouble(), 0.0);
+        const GVector::vector3d<double> p1z1(line_segment.p1_x->getDouble(),
+                                             line_segment.p1_y->getDouble(), 180.0);
+        const GVector::vector3d<double> p2z1(line_segment.p2_x->getDouble(),
+                                             line_segment.p2_y->getDouble(), 180.0);
+        drawFieldLine(p1z0, p1z1, steps_per_line, vis_frame);
+        drawFieldLine(p2z0, p2z1, steps_per_line, vis_frame);
+    }
+
   real_field.field_markings_mutex.unlock();
 }
 
